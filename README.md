@@ -1,0 +1,4 @@
+django-publications
+===================
+
+django-publications

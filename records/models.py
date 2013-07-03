@@ -39,19 +39,19 @@ class Author(models.Model):
 class Book(models.Model):
     title = models.CharField(max_length=80)
     description = models.TextField(default='')
-    pdf = models.FileField(upload_to='pdfs')
-    authors = models.ManyToManyField(Author)
-    publisher = models.ForeignKey(Publisher)
+    pdf = models.FileField(upload_to='pdfs', null=True, blank=True)
+    authors = models.ManyToManyField(Author, null=True, blank=True)
+    publisher = models.ForeignKey(Publisher, null=True, blank=True)
     publication_year = models.CharField(max_length=4)
     stock = models.BooleanField(default=False)
     def __unicode__(self):
         return self.title
 
 class Image(models.Model):
-    artist = models.ForeignKey(Artist)
+    artist = models.ForeignKey(Artist, null=True, blank=True)
     book = models.ForeignKey(Book)
     image = models.ImageField(upload_to='images')
     page_no = models.IntegerField(default=0)
-    description = models.TextField(default='')
+    description = models.TextField(null=True, blank=True)
     def __unicode__(self):
-        return self.book.name+' page-'+self.page_no
+        return "{}-{}".format(self.book.title,self.page_no)
